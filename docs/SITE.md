@@ -15,7 +15,8 @@ AI 工具的可引用入口。站点与产品仓库分离：
 ## 当前状态（2026-10-15）
 
 - 首版站点已实现：单页官网 `site/index.html` + `site/404.html`，桌面与移动端经浏览器实测；
-- 未创建 Cloudflare 项目、未绑定域名、未上线（见 `docs/HOSTING.md`）。
+- 已部署到 Cloudflare Pages：`https://lagoon-website.pages.dev`；当前生产部署为 `f129e204`，对应提交 `8c4284f`；
+- 尚未绑定自定义域名，Pages Git 集成与自动发布也尚未启用（见 `docs/HOSTING.md`）。
 
 ## 已定案的决策
 
