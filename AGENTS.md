@@ -6,8 +6,8 @@
 Collaboration: solo
 Baseline: main
 Release: none
-Validation: `bash scripts/verify-repository.sh`、`git diff --check`（两者即 CI `verify` 作业的内容）；前端技术栈落地后，把该栈的 lint/test/build 命令登记到本节并接入 CI，未登记的检查不得臆造。
-Worktree: `~/项目/.wt/Lagoon/<slug>`
+Validation: `bash scripts/verify-repository.sh`、`python3 scripts/check-site.py`、`git diff --check`（三者即 CI `verify` 作业的内容）；改动页面、样式或脚本时，另按 `docs/SITE.md`「浏览器验证」在桌面与移动视口实测并在 PR 中贴结论。
+Worktree: `~/项目/.wt/Lagoon-site/<slug>`
 
 ## 这是什么
 
@@ -16,8 +16,13 @@ Lagoon 的官网与下载入口，源码与产品仓库分离维护：
 - 产品仓库（唯一事实来源）：`https://github.com/IGNGserver/opencode-lagoon`；
 - 本仓库只承载站点（页面、样式、静态资源、站点文档），不得复制产品源码、安装包或发布资产。
 
-**前端技术栈尚未选定**：在技术栈与页面结构定案前，不提交框架脚手架、依赖清单（如 `package.json`）、
-锁文件或构建目录；定案时同步更新本文件、`docs/SITE.md`、`docs/HOSTING.md` 与 CI。
+## 技术栈（2026-10-15 定案）
+
+- **零构建静态站点**：`site/` 即发布目录，手写 HTML + CSS + 原生 ES modules，WebGL 着色器直接写在 `site/assets/js/ocean.js`；
+  没有 `package.json`、锁文件、打包器或构建步骤，Cloudflare 直接托管 `site/`。
+- 不引入框架、npm 依赖或 CDN 运行时依赖；JS 只允许相对路径导入（`scripts/check-site.py` 会拦截裸模块导入）。
+- 需要浏览器自动化测试时，Playwright 等工具装在本机构建区（`$BUILD_SCRATCH_ROOT`），不进仓库、不进项目卷。
+- 若将来改用框架或构建工具，必须同步更新本文件、`docs/SITE.md`、`docs/HOSTING.md` 与 CI。
 
 ## 集成补充
 
@@ -31,10 +36,12 @@ Lagoon 的官网与下载入口，源码与产品仓库分离维护：
 ## 项目特殊限制
 
 - 不得提交 `node_modules`、构建产物、`.wrangler/`、`.env*` 与任何凭据；`scripts/verify-repository.sh` 会拦截。
-- 站点文案引用产品事实（功能、平台、版本）时必须与产品仓库当前 `README.md` / Release 对齐，不得编造未发布能力。
+- 站点文案引用产品事实（功能、平台、版本）时必须与产品仓库当前 `README.md` / Release 对齐，不得编造未发布能力；
+  正式版、预发布版与规划方向必须分开表述（见 `docs/SITE.md`「内容原则」与「版本更新清单」）。
+- 页面里的手机界面是依据产品源码重绘的 HTML 示意，不是截图；改动时以产品仓库对应 Compose 页面为准，并保留“界面示意”标注。
 - 域名与 Cloudflare 项目名在 `docs/HOSTING.md` 记录；未定案前不得把猜测值写入代码或文档结论。
 
 ## 环境事实
 
-- 开发位置：ubuntu-dev，NAS 共享卷 `~/项目`；仓库锚点 `~/项目/项目网站/Lagoon`，任务 worktree 在 `~/项目/.wt/Lagoon/<slug>`。
+- 开发位置：NAS 共享卷 `~/项目`；仓库锚点 `~/项目/项目网站/Lagoon-site`，任务 worktree 在 `~/项目/.wt/Lagoon-site/<slug>`（`wt` 按锚点目录名命名）。
 - 生产目标：Cloudflare 边缘网络（账号与 zone 已具备，站点项目与域名未定；不写凭据）。

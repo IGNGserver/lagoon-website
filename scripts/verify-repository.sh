@@ -10,6 +10,7 @@ required_files=(
   .gitignore .gitattributes .editorconfig
   docs/SITE.md docs/HOSTING.md docs/WORKSPACE.md
   .github/workflows/ci.yml .github/pull_request_template.md .github/CODEOWNERS
+  site/index.html site/404.html scripts/check-site.py
 )
 for file in "${required_files[@]}"; do
   test -f "$file" || { echo "missing required file: $file" >&2; exit 1; }

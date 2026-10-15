@@ -12,6 +12,7 @@
 
 ```text
 bash scripts/verify-repository.sh
+python3 scripts/check-site.py
 git diff --check
 ```
 
