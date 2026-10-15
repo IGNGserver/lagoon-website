@@ -22,8 +22,6 @@
 
 | 方案 | 状态 | 说明 |
 | --- | --- | --- |
-| 方案 | 状态 | 说明 |
-| --- | --- | --- |
 | Cloudflare Pages（Git 集成） | 未启用 | 创建时 Cloudflare Git 安装返回 8000011，未建立自动同步 |
 | Cloudflare Pages（Direct Upload） | **当前方案** | 零构建发布 `site/`，通过 Pages API 上传静态资源 |
 | Workers 静态资源 | 未采用 | 当前不需要边缘逻辑 |
