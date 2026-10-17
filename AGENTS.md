@@ -44,4 +44,5 @@ Lagoon 的官网与下载入口，源码与产品仓库分离维护：
 ## 环境事实
 
 - 开发位置：NAS 共享卷 `~/项目`；仓库锚点 `~/项目/项目网站/Lagoon-site`，任务 worktree 在 `~/项目/.wt/Lagoon-site/<slug>`（`wt` 按锚点目录名命名）。
+- 搜索收录：Google 走已验证的域名资源 `sc-domain:igng.net`（子域无需单独验证，`site/robots.txt` 的 Sitemap 行是发现入口）；Bing 走首页的 `msvalidate.01` meta 验证，**删掉该 meta 会让 Bing 站点失去所有权**。
 - 生产目标：Cloudflare Pages Direct Upload 项目 `lagoon-website`，正式域名 `https://lagoon.igng.net`；自定义域名绑定在项目上，之后的每次部署都自动服务该域名，`https://lagoon-website.pages.dev` 只作默认别名保留；不写凭据。
