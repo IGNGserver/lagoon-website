@@ -15,7 +15,7 @@ AI 工具的可引用入口。站点与产品仓库分离：
 ## 当前状态（2026-10-15）
 
 - 首版站点已实现：单页官网 `site/index.html` + `site/404.html`，桌面与移动端经浏览器实测；
-- 已部署到 Cloudflare Pages，正式地址 `https://lagoon.igng.net`（默认别名 `https://lagoon-website.pages.dev`）；当前生产部署为 `f129e204`，对应提交 `8c4284f`；
+- 已部署到 Cloudflare Pages，正式地址 `https://lagoon.igng.net`（默认别名 `https://lagoon-website.pages.dev`）；当前生产部署为 `5214d2ca`，对应提交 `f9ead1c`；
 - 尚未绑定自定义域名，Pages Git 集成与自动发布也尚未启用（见 `docs/HOSTING.md`）。
 
 ## 已定案的决策

@@ -26,9 +26,10 @@
 | Cloudflare Pages（Direct Upload） | **当前方案** | 零构建发布 `site/`，通过 Pages API 上传静态资源 |
 | Workers 静态资源 | 未采用 | 当前不需要边缘逻辑 |
 
-当前生产部署：`f129e204`，对应提交 `8c4284f0caac82202f492108fc6e06dfbb3efacb`，
-部署地址为 `https://f129e204.lagoon-website.pages.dev`，项目规范地址为
-`https://lagoon.igng.net`（自定义域名与项目内所有部署同源）。
+当前生产部署：`5214d2ca-6662-41e0-9ba6-d843e5e6b48c`，对应提交 `f9ead1c`（2026-10-17，切换到
+正式域名后重新发布）；项目规范地址为 `https://lagoon.igng.net`，自定义域名与项目内所有部署同源，
+`https://5214d2ca.lagoon-website.pages.dev` 只是本次部署的临时地址。
+上一版为 `f129e204-4207-4df1-b13a-a3cc3f9f6dbb`（提交 `8c4284f0caac82202f492108fc6e06dfbb3efacb`）。
 
 - 自定义域名记录：proxied CNAME `lagoon.igng.net` → `lagoon-website.pages.dev`，zone `igng.net`
   （zone id `d3f06d3e7ef8cccf99e93ce9c4ea4f44`，record id `f22e0dd39c0f914101dab3de2d5a9727`）。
@@ -39,7 +40,8 @@
 - [x] 创建 Cloudflare 项目：Pages 项目 `lagoon-website`，生产分支标记为 `main`，发布目录为 `site/`；
 - [x] 选定 zone `igng.net` 与子域 `lagoon`，自定义域名 `lagoon.igng.net` 已配置并验证 HTTPS（2026-10-17）；
 - [ ] 若启用 CI 上传：在 GitHub 仓库 Secrets 配置最小权限的 `CLOUDFLARE_API_TOKEN` 与 `CLOUDFLARE_ACCOUNT_ID`；当前未配置，凭据不得提交；
-- [x] 手动 Direct Upload 已完成：Pages API 部署 `f129e204`，固定提交 `8c4284f0caac82202f492108fc6e06dfbb3efacb`；
+- [x] 手动 Direct Upload 已完成：首版 `f129e204`（提交 `8c4284f`），切换到正式域名后重新发布为 `5214d2ca`（提交 `f9ead1c`）；
+- [x] 正式域名验证通过：`https://lagoon.igng.net/` 首页 200、未知路径 404、`/sitemap.xml` 200、`robots.txt` 指向正式域名、HTTPS 与安全响应头生效；
 - [ ] 自动发布工作流：当前未启用 Git 集成或 GitHub Actions，后续变更需按 Direct Upload 流程重新发布；
 - [x] `og:image` 已改为绝对 URL，并补 `canonical` / `og:url` / `sitemap.xml` 与 `robots.txt` 的 Sitemap 行（2026-10-17）；
 - [x] 上线后验证：默认 Pages 地址首页与资源返回 200、404 返回 404、HTTPS 与 CSP/安全响应头生效，浏览器控制台无错误；
@@ -48,5 +50,7 @@
 ## 回滚
 
 - Pages / Workers：在 Cloudflare 控制台回滚到上一个部署版本，或按对应 CLI 的 rollback 命令处理；
-- 当前生产部署 ID：`f129e204-4207-4df1-b13a-a3cc3f9f6dbb`；首次部署前没有可回滚的旧版本；
+- 发布命令（零构建，直接发布 `site/`；自定义域名绑定在项目上，所以每次发布都直接服务 `https://lagoon.igng.net`）：
+  `npx wrangler pages deploy site --project-name lagoon-website --branch main`；凭据只以环境变量 `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` 注入（账号 `d08c9ec0a1765b7040866053cec24e8b`），不得写进仓库或 CI 长期 Secrets；
+- 当前生产部署 ID：`5214d2ca-6662-41e0-9ba6-d843e5e6b48c`；回滚点：`f129e204-4207-4df1-b13a-a3cc3f9f6dbb`；
 - 域名变更：修改 DNS 记录前记录原值，回滚即恢复原记录；当前是 proxied CNAME `lagoon.igng.net` → `lagoon-website.pages.dev`，改动必须同步 Pages 自定义域名与 `ALLOWED_HOSTS`。
