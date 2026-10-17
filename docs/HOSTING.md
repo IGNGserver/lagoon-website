@@ -36,8 +36,16 @@
 
 ## 搜索收录
 
-- Google Search Console：域名资源 `sc-domain:igng.net` 已验证，本域名无需单独验证；sitemap 由 `site/robots.txt` 的 `Sitemap:` 行暴露，GSC 的手动提交只能在 UI 做（公开 API 已无 `sitemaps.submit`）。
-- Bing Webmaster Tools：站点 `https://lagoon.igng.net` 已登记，所有权用首页 `<meta name="msvalidate.01" content="B411826ACAE5C5CD20EA5574C3F8A6E4">` 验证；验证后提交 `https://lagoon.igng.net/sitemap.xml` 与首页 URL。
+- Bing Webmaster Tools：站点 `https://lagoon.igng.net/` **已验证所有权**（2026-10-17），方式是首页
+  `<meta name="msvalidate.01" content="B411826ACAE5C5CD20EA5574C3F8A6E4">`；该值是账号级 auth code，与
+  其它 `*.igng.net` 站点相同，**删掉这条 meta 会让 Bing 失去所有权记录**。已提交
+  `https://lagoon.igng.net/sitemap.xml`（抓取状态 Success，1 条 URL）与首页。
+- Google Search Console：无需为本子域单独验证，域名资源 `sc-domain:igng.net`（权限 `siteFullUser`）已覆盖。
+  2026-10-17 用 URL Inspection 查询首页为 `URL is unknown to Google`，属新建域名的正常状态；
+  Google 需要先抓 `site/robots.txt` 的 `Sitemap:` 行才会发现 `site/sitemap.xml`。
+- GSC 的 sitemap 提交与 Request Indexing 只能在控制台 UI 做：公开 API 的 `sitemaps.submit` 已下线
+  （`GET .../sitemaps` 仍可读，`PUT .../feedpath/...` 一律 404）。
+- `site/sitemap.xml` 只列首页；新增页面时要同步补该文件与 `ALLOWED_HOSTS`。
 
 ## 上线检查清单
 
