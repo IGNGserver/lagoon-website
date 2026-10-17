@@ -17,7 +17,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent / "site"
-ALLOWED_HOSTS = {"github.com", "schema.org"}
+ALLOWED_HOSTS = {"github.com", "schema.org", "lagoon.igng.net"}
 APK_RE = re.compile(r"^https://github\.com/IGNGserver/opencode-lagoon/releases/download/v(\d+\.\d+\.\d+(?:-[a-z]+\.\d+)?)/Lagoon-(\1)\.apk$")
 MAX_FILE = 400 * 1024
 MAX_TOTAL = 1536 * 1024

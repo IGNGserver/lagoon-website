@@ -8,7 +8,7 @@
 
 - Cloudflare 账号已就绪，zone 与 Pages/Workers 均可用；
 - 本仓库为独立公开仓库，CI 走 GitHub Actions；
-- Pages 项目 `lagoon-website` 已创建，默认地址为 `https://lagoon-website.pages.dev`；自定义域名尚未选定。
+- Pages 项目 `lagoon-website` 已创建；正式域名 `https://lagoon.igng.net` 已于 2026-10-17 绑定为自定义域名，默认地址 `https://lagoon-website.pages.dev` 保留为别名。
 
 ## 站点产物（2026-10-15 定案）
 
@@ -28,17 +28,20 @@
 
 当前生产部署：`f129e204`，对应提交 `8c4284f0caac82202f492108fc6e06dfbb3efacb`，
 部署地址为 `https://f129e204.lagoon-website.pages.dev`，项目规范地址为
-`https://lagoon-website.pages.dev`。
+`https://lagoon.igng.net`（自定义域名与项目内所有部署同源）。
+
+- 自定义域名记录：proxied CNAME `lagoon.igng.net` → `lagoon-website.pages.dev`，zone `igng.net`
+  （zone id `d3f06d3e7ef8cccf99e93ce9c4ea4f44`，record id `f22e0dd39c0f914101dab3de2d5a9727`）。
 
 ## 上线检查清单
 
 - [x] 前端技术栈与构建命令定案，登记到 `AGENTS.md` 并接入 CI（零构建，发布目录 `site/`）；
 - [x] 创建 Cloudflare 项目：Pages 项目 `lagoon-website`，生产分支标记为 `main`，发布目录为 `site/`；
-- [ ] 选定 zone 与子域（候选：`igng.net` 子域或独立域名），配置自定义域并验证 HTTPS；
+- [x] 选定 zone `igng.net` 与子域 `lagoon`，自定义域名 `lagoon.igng.net` 已配置并验证 HTTPS（2026-10-17）；
 - [ ] 若启用 CI 上传：在 GitHub 仓库 Secrets 配置最小权限的 `CLOUDFLARE_API_TOKEN` 与 `CLOUDFLARE_ACCOUNT_ID`；当前未配置，凭据不得提交；
 - [x] 手动 Direct Upload 已完成：Pages API 部署 `f129e204`，固定提交 `8c4284f0caac82202f492108fc6e06dfbb3efacb`；
 - [ ] 自动发布工作流：当前未启用 Git 集成或 GitHub Actions，后续变更需按 Direct Upload 流程重新发布；
-- [ ] 把 `og:image` 改为绝对 URL，补 canonical / `og:url`；
+- [x] `og:image` 已改为绝对 URL，并补 `canonical` / `og:url` / `sitemap.xml` 与 `robots.txt` 的 Sitemap 行（2026-10-17）；
 - [x] 上线后验证：默认 Pages 地址首页与资源返回 200、404 返回 404、HTTPS 与 CSP/安全响应头生效，浏览器控制台无错误；
 - [ ] 评估是否把官网域名回填为产品仓库的 homepage（产品仓库当前未设置 homepage）。
 
@@ -46,4 +49,4 @@
 
 - Pages / Workers：在 Cloudflare 控制台回滚到上一个部署版本，或按对应 CLI 的 rollback 命令处理；
 - 当前生产部署 ID：`f129e204-4207-4df1-b13a-a3cc3f9f6dbb`；首次部署前没有可回滚的旧版本；
-- 域名变更：修改 DNS 记录前记录原值，回滚即恢复原记录。
+- 域名变更：修改 DNS 记录前记录原值，回滚即恢复原记录；当前是 proxied CNAME `lagoon.igng.net` → `lagoon-website.pages.dev`，改动必须同步 Pages 自定义域名与 `ALLOWED_HOSTS`。
