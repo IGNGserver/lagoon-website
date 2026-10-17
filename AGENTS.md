@@ -39,9 +39,9 @@ Lagoon 的官网与下载入口，源码与产品仓库分离维护：
 - 站点文案引用产品事实（功能、平台、版本）时必须与产品仓库当前 `README.md` / Release 对齐，不得编造未发布能力；
   正式版、预发布版与规划方向必须分开表述（见 `docs/SITE.md`「内容原则」与「版本更新清单」）。
 - 页面里的手机界面是依据产品源码重绘的 HTML 示意，不是截图；改动时以产品仓库对应 Compose 页面为准，并保留“界面示意”标注。
-- 域名与 Cloudflare 项目名在 `docs/HOSTING.md` 记录；未定案前不得把猜测值写入代码或文档结论。
+- 正式域名 `https://lagoon.igng.net`，Cloudflare Pages 项目 `lagoon-website`；域名或项目名变更要在 `docs/HOSTING.md` 登记，并同步 `scripts/check-site.py` 的 `ALLOWED_HOSTS`。
 
 ## 环境事实
 
 - 开发位置：NAS 共享卷 `~/项目`；仓库锚点 `~/项目/项目网站/Lagoon-site`，任务 worktree 在 `~/项目/.wt/Lagoon-site/<slug>`（`wt` 按锚点目录名命名）。
-- 生产目标：Cloudflare 边缘网络（账号与 zone 已具备，站点项目与域名未定；不写凭据）。
+- 生产目标：Cloudflare Pages Direct Upload 项目 `lagoon-website`，正式域名 `https://lagoon.igng.net`；自定义域名绑定在项目上，之后的每次部署都自动服务该域名，`https://lagoon-website.pages.dev` 只作默认别名保留；不写凭据。
